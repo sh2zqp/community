@@ -5,9 +5,12 @@ import com.sh2zqp.community.dto.GithubUser;
 import com.sh2zqp.community.provider.GithubProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class AuthorizeController {
@@ -23,7 +26,8 @@ public class AuthorizeController {
 
     @GetMapping("/callback")
     public String callback(@RequestParam(name = "code") String code,
-                           @RequestParam(name = "state") String state) {
+                           @RequestParam(name = "state") String state,
+                           HttpServletRequest request) {
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
         accessTokenDTO.setClient_id(clientId);
         accessTokenDTO.setClient_secret(clientSecret);
@@ -33,8 +37,12 @@ public class AuthorizeController {
         String accessToken = githubProvider.getAccessToken(accessTokenDTO);
 
         GithubUser user = githubProvider.getUser(accessToken);
-        System.out.println(user.getName());
-
-        return "index";
+        if (user == null) {
+            // 登录失败，重新登录
+        } else {
+            // 登录成功，写session和cookie
+            request.getSession().setAttribute("user", user);
+        }
+        return "redirect:/";
     }
 }
