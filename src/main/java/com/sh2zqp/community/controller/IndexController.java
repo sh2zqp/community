@@ -1,6 +1,6 @@
 package com.sh2zqp.community.controller;
 
-import com.sh2zqp.community.dto.QuestionDTO;
+import com.sh2zqp.community.dto.PageDisplayDTO;
 import com.sh2zqp.community.mapper.UserMapper;
 import com.sh2zqp.community.model.User;
 import com.sh2zqp.community.service.QuestionService;
@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @Controller
 public class IndexController {
@@ -21,14 +21,16 @@ public class IndexController {
     private QuestionService questionService;
 
     @GetMapping("/")
-    public String index(HttpServletRequest request, Model model) {
+    public String index(HttpServletRequest request, Model model,
+                        @RequestParam(name = "page", defaultValue = "1") Integer page,
+                        @RequestParam(name = "size", defaultValue = "5") Integer size) {
         User user = CommunityUtil.getSessionUser(request, userMapper);
         if (user != null) {
             request.getSession().setAttribute("user", user);
         }
 
-        List<QuestionDTO> questions = questionService.list();
-        model.addAttribute("questions", questions);
+        PageDisplayDTO pageDisplayDTO = questionService.list(page, size);
+        model.addAttribute("pageDisplayDTO", pageDisplayDTO);
 
         return "index";
     }

@@ -1,5 +1,6 @@
 package com.sh2zqp.community.service;
 
+import com.sh2zqp.community.dto.PageDisplayDTO;
 import com.sh2zqp.community.dto.QuestionDTO;
 import com.sh2zqp.community.mapper.QuestionMapper;
 import com.sh2zqp.community.mapper.UserMapper;
@@ -20,17 +21,31 @@ public class QuestionService {
     private QuestionMapper questionMapper;
 
 
-    public List<QuestionDTO> list() {
-        List<Question> questions = questionMapper.list();
+    public PageDisplayDTO list(Integer page, Integer size) {
+        Integer totalCount = questionMapper.count();  // 数据库中的总的问题条数
+        Integer totalPage = totalCount/size == 0 ? totalCount/size : totalCount/size + 1;  // 总的可以分的页数
+        // 非法处理
+        if (page < 1) {
+            page = 1;
+        }
+        if (page > totalPage) {
+            page = totalPage;
+        }
+
+        Integer offset = size*(page-1);  // 数据库分页查询偏移量
+        List<Question> questions = questionMapper.list(offset, size);
         List<QuestionDTO> questionDTOS = new ArrayList<>();
+        PageDisplayDTO pageDisplayDTO = new PageDisplayDTO();
         for (Question question : questions) {
             User user = userMapper.findUserById(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
             BeanUtils.copyProperties(question, questionDTO);
             questionDTO.setUser(user);
-
             questionDTOS.add(questionDTO);
         }
-        return questionDTOS;
+        pageDisplayDTO.setQuestionDTOS(questionDTOS);
+        pageDisplayDTO.sePageDisplayDTO(totalCount, totalPage, page);  // 设置页面的一些分页显示数据
+
+        return pageDisplayDTO;
     }
 }
