@@ -1,6 +1,7 @@
 package com.sh2zqp.community.mapper;
 
 import com.sh2zqp.community.model.User;
+import edu.princeton.cs.algs4.In;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -14,4 +15,7 @@ public interface UserMapper {
 
     @Select("select * from user where token = #{token}")
     User findUserByToken(@Param("token") String token);
+
+    @Select("select * from user where id = #{id}")
+    User findUserById(@Param("id") Integer id);
 }

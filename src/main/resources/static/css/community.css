@@ -15,3 +15,14 @@ body {
 .error-tint {
     text-align: center;
 }
+
+.media-object {
+    width: 40px;
+    height: 40px;
+}
+
+.text-desc {
+    font-size: 12px;
+    font-weight: normal;
+    color: #999;
+}

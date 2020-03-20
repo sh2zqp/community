@@ -7,6 +7,7 @@
     <script src="js/bootstrap.js" type="application/javascript"></script>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-theme.css">
+    <link rel="stylesheet" href="css/community.css">
 </head>
 <body>
     <nav class="navbar navbar-default">
@@ -15,7 +16,7 @@
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                     <span class="sr-only">码匠社区</span>
                 </button>
-                <a class="navbar-brand" href="#">码匠社区</a>
+                <a class="navbar-brand" href="/">码匠社区</a>
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -45,5 +46,35 @@
             </div>
         </div>
     </nav>
+
+    <div class="container-fluid main">
+        <div class="row">
+            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                <h3><span class="glyphicon glyphicon-list" aria-hidden="true"></span> 发现</h3>
+                <hr >
+                <div class="media" th:each="question : ${questions}">
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="media-object img-thumbnail"
+                                 src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1584675818266&di=46b5add54bdede3ad74878042a7aa12c&imgtype=0&src=http%3A%2F%2Fa0.att.hudong.com%2F78%2F52%2F01200000123847134434529793168.jpg" alt="avatar">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading" th:text="${question.getTitle()}"></h4>
+                        <span th:text="${question.getDescription()}"></span>
+                        <span class="text-desc">
+                            <span th:text="${question.getCommentCount()}"></span> 个评论 •
+                            <span th:text="${question.getViewCount()}"></span> 次浏览 •
+                            <span th:text="${question.getLikeCount()}"></span> 次点赞 •
+                            <span th:text="${#dates.format(question.getGmtCreate(), 'yyyy-MM-dd HH:mm:ss')}"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                <h3>热门话题</h3>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
