@@ -23,7 +23,7 @@ public class QuestionService {
 
     public PageDisplayDTO list(Integer page, Integer size) {
         Integer totalCount = questionMapper.count();  // 数据库中的总的问题条数
-        Integer totalPage = totalCount/size == 0 ? totalCount/size : totalCount/size + 1;  // 总的可以分的页数
+        Integer totalPage = totalCount%size == 0 ? totalCount/size : totalCount/size + 1;  // 总的可以分的页数
         // 非法处理
         if (page < 1) {
             page = 1;
@@ -51,7 +51,7 @@ public class QuestionService {
 
     public PageDisplayDTO list(Integer page, Integer size, Integer userId) {
         Integer totalCount = questionMapper.countByUserId(userId);
-        Integer totalPage = totalCount/size == 0 ? totalCount/size : totalCount/size + 1;  // 总的可以分的页数
+        Integer totalPage = totalCount%size == 0 ? totalCount/size : totalCount/size + 1;  // 总的可以分的页数
         // 非法处理
         if (page < 1) {
             page = 1;
