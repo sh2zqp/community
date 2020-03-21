@@ -7,6 +7,7 @@ import okhttp3.*;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.Objects;
 
 @Component
 public class GithubProvider {
@@ -20,8 +21,12 @@ public class GithubProvider {
                 .post(body)
                 .build();
         try (Response response = client.newCall(request).execute()) {
-            String string = response.body().string();
-            return string.split("&")[0].split("=")[1];
+            if (response.isSuccessful()) {
+                String string = Objects.requireNonNull(response.body()).string();
+                return string.split("&")[0].split("=")[1];
+            } else {
+                return null;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -35,12 +40,19 @@ public class GithubProvider {
                 .build();
         try {
             Response response = client.newCall(request).execute();
-            String string = response.body().string();
-            GithubUser githubUser = JSON.parseObject(string, GithubUser.class);
-            return githubUser;
+            if (response.isSuccessful()) {
+                String string = Objects.requireNonNull(response.body()).string();
+                return JSON.parseObject(string, GithubUser.class);
+            } else {
+                return null;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public boolean githubUserIsExists(Integer count) {
+        return count == 1;
     }
 }
