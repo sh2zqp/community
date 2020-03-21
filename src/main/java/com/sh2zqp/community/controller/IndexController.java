@@ -29,7 +29,7 @@ public class IndexController {
             request.getSession().setAttribute("user", user);
         }
 
-        PageDisplayDTO pageDisplayDTO = questionService.list(page, size);
+        PageDisplayDTO pageDisplayDTO = questionService.list(page, size); // 全部查询
         model.addAttribute("pageDisplayDTO", pageDisplayDTO);
 
         return "index";

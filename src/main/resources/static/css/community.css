@@ -30,3 +30,7 @@ body {
 .page-fenye {
     float: right;
 }
+
+.profile .section {
+    margin-top: 20px;
+}
