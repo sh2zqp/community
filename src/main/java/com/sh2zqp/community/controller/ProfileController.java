@@ -1,10 +1,8 @@
 package com.sh2zqp.community.controller;
 
 import com.sh2zqp.community.dto.PageDisplayDTO;
-import com.sh2zqp.community.mapper.UserMapper;
 import com.sh2zqp.community.model.User;
 import com.sh2zqp.community.service.QuestionService;
-import com.sh2zqp.community.utils.CommunityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,8 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class ProfileController {
     @Autowired
-    private UserMapper userMapper;
-    @Autowired
     private QuestionService questionService;
 
     @GetMapping("/profile/{action}")
@@ -28,7 +24,7 @@ public class ProfileController {
                           @RequestParam(name = "page", defaultValue = "1") Integer page,
                           @RequestParam(name = "size", defaultValue = "5") Integer size) {
 
-        User user = CommunityUtil.getSessionUser(request, userMapper);
+        User user = (User) request.getSession().getAttribute("user");
         if (user != null) {
             request.getSession().setAttribute("user", user);
         } else {

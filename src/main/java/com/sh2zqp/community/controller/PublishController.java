@@ -1,10 +1,8 @@
 package com.sh2zqp.community.controller;
 
 import com.sh2zqp.community.mapper.QuestionMapper;
-import com.sh2zqp.community.mapper.UserMapper;
 import com.sh2zqp.community.model.Question;
 import com.sh2zqp.community.model.User;
-import com.sh2zqp.community.utils.CommunityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,8 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 public class PublishController {
     @Autowired
     private QuestionMapper questionMapper;
-    @Autowired
-    private UserMapper userMapper;
 
     @GetMapping("/publish")
     public String publish() {
@@ -51,7 +47,7 @@ public class PublishController {
             return "publish";   // 有异常回到publish页面
         }
 
-        User user = CommunityUtil.getSessionUser(request, userMapper);
+        User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
             model.addAttribute("error", "用户未登录");
             return "publish";   // 有异常回到publish页面
