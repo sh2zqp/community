@@ -76,4 +76,14 @@ public class QuestionService {
 
         return pageDisplayDTO;
     }
+
+    public QuestionDTO getQuestion(Integer id) {
+        QuestionDTO questionDTO = new QuestionDTO();
+        Question question = questionMapper.getQuestionById(id);
+        BeanUtils.copyProperties(question, questionDTO);
+        User user = userMapper.findUserById(question.getCreator());
+        questionDTO.setUser(user);
+
+        return questionDTO;
+    }
 }
