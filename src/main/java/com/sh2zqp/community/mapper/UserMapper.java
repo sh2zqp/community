@@ -1,11 +1,7 @@
 package com.sh2zqp.community.mapper;
 
 import com.sh2zqp.community.model.User;
-import edu.princeton.cs.algs4.In;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface UserMapper {
@@ -19,6 +15,11 @@ public interface UserMapper {
     @Select("select * from user where id = #{id}")
     User findUserById(@Param("id") Integer id);
 
-    @Select("select count(1) from user where account_id = #{userId}")
-    Integer countUser(@Param("userId") String userId);
+    @Select("select * from user where account_id = #{accountId}")
+    User findUserByAccountId(@Param("accountId") String accountId);
+
+    @Update("update user " +
+            "set name = #{name}, token = #{token}, bio=#{bio}, avatar_url = #{avatarUrl}, gmt_modified = #{gmtModified} " +
+            "where account_id = #{accountId}")
+    void updateUser(User user);
 }
