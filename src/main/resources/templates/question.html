@@ -27,7 +27,8 @@
             <hr >
             <p th:text="${questionDTO.getDescription()}"></p>
             <hr >
-            <a th:href="@{'/publish' + ${questionDTO.getId()}}" class="community-menu">
+            <a th:href="@{'/publish' + ${questionDTO.getId()}}" class="community-menu"
+               th:if="${session.user != null && session.user.getId() == questionDTO.getCreator()}">
                 <span class="glyphicon glyphicon-pencil" aria-hidden="true">编辑
                 </span>
             </a>
@@ -38,8 +39,7 @@
                 <div class="media">
                     <div class="media-left">
                         <a href="#">
-                            <img class="media-object img-rounded"
-                                 src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1584675818266&di=46b5add54bdede3ad74878042a7aa12c&imgtype=0&src=http%3A%2F%2Fa0.att.hudong.com%2F78%2F52%2F01200000123847134434529793168.jpg" alt="avatar">
+                            <img class="media-object img-rounded" th:src="${questionDTO.getUser().getAvatarUrl()}" alt="avatar">
                         </a>
                     </div>
                     <div class="media-body">
