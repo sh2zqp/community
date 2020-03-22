@@ -39,7 +39,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="page-fenye">
+                <div class="page-fenye" th:if="${!pageDisplayDTO.getQuestionDTOS().isEmpty()}">
                     <nav aria-label="Page navigation" >
                         <ul class="pagination">
                             <li th:if="${pageDisplayDTO.isShowFirstPage()}">
