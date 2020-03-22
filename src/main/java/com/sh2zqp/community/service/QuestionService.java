@@ -77,7 +77,7 @@ public class QuestionService {
         return pageDisplayDTO;
     }
 
-    public QuestionDTO getQuestion(Integer id) {
+    public QuestionDTO getQuestionById(Integer id) {
         QuestionDTO questionDTO = new QuestionDTO();
         Question question = questionMapper.getQuestionById(id);
         BeanUtils.copyProperties(question, questionDTO);
@@ -85,5 +85,17 @@ public class QuestionService {
         questionDTO.setUser(user);
 
         return questionDTO;
+    }
+
+    public void createOrUpdate(Question question) {
+        Question questionById = questionMapper.getQuestionById(question.getId());
+        if (questionById == null) {
+            // 创建
+            questionMapper.create(question);
+        } else {
+            // 更新
+            question.setGmtModified(System.currentTimeMillis());
+            questionMapper.update(question);
+        }
     }
 }
