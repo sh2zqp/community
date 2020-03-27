@@ -17,7 +17,7 @@ public class IndexController {
     public String index(Model model,
                         @RequestParam(name = "page", defaultValue = "1") Integer page,
                         @RequestParam(name = "size", defaultValue = "5") Integer size) {
-
+        // DEBUG
         PageDisplayDTO pageDisplayDTO = questionService.list(page, size); // 全部查询
         model.addAttribute("pageDisplayDTO", pageDisplayDTO);
 
