@@ -2,6 +2,8 @@ package com.sh2zqp.community.service;
 
 import com.sh2zqp.community.dto.PageDisplayDTO;
 import com.sh2zqp.community.dto.QuestionDTO;
+import com.sh2zqp.community.exception.CustomizeErrorCode;
+import com.sh2zqp.community.exception.CustomizeException;
 import com.sh2zqp.community.mapper.QuestionMapper;
 import com.sh2zqp.community.mapper.UserMapper;
 import com.sh2zqp.community.model.Question;
@@ -91,6 +93,9 @@ public class QuestionService {
     public QuestionDTO getQuestionById(Integer id) {
         QuestionDTO questionDTO = new QuestionDTO();
         Question question = questionMapper.selectByPrimaryKey(id);
+        if (question == null) {
+            throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+        }
         BeanUtils.copyProperties(question, questionDTO);
         User user = userMapper.selectByPrimaryKey(question.getCreator());
         questionDTO.setUser(user);
@@ -113,7 +118,10 @@ public class QuestionService {
 
             QuestionExample questionExample = new QuestionExample();
             questionExample.createCriteria().andIdEqualTo(question.getId());
-            questionMapper.updateByExampleSelective(updateQuestion,questionExample);
+            int update = questionMapper.updateByExampleSelective(updateQuestion, questionExample);
+            if (update != 1) {
+                throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+            }
         }
     }
 }

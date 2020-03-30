@@ -45,3 +45,8 @@ body {
     float: right;
     margin-bottom: 20px;
 }
+
+.jumbotron {
+    margin: 40px;
+    background: url("../img/bg.jpg") repeat;
+}

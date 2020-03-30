@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>码匠社区</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/bootstrap.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="/css/community.css">
+</head>
+<body>
+    <div th:insert="~{navigation :: nav}">
+    </div>
+
+    <div class="jumbotron">
+        <h1>出错了!</h1>
+        <p th:text="${message}">网站太热了, 休息会儿再来吧...</p>
+        <p><a class="btn btn-primary btn-lg" href="/" role="button">返回主页</a></p>
+    </div>
+</body>
+</html>
