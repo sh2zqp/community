@@ -4,6 +4,7 @@ import com.sh2zqp.community.dto.PageDisplayDTO;
 import com.sh2zqp.community.dto.QuestionDTO;
 import com.sh2zqp.community.exception.CustomizeErrorCode;
 import com.sh2zqp.community.exception.CustomizeException;
+import com.sh2zqp.community.mapper.QuestionExtendMapper;
 import com.sh2zqp.community.mapper.QuestionMapper;
 import com.sh2zqp.community.mapper.UserMapper;
 import com.sh2zqp.community.model.Question;
@@ -23,6 +24,8 @@ public class QuestionService {
     private UserMapper userMapper;
     @Autowired
     private QuestionMapper questionMapper;
+    @Autowired
+    private QuestionExtendMapper questionExtendMapper;
 
 
     public PageDisplayDTO list(Integer page, Integer size) {
@@ -123,5 +126,11 @@ public class QuestionService {
                 throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
         }
+    }
+
+    public void incView(Integer id) {
+        Question recordQuestion = new Question();
+        recordQuestion.setId(id);
+        questionExtendMapper.incView(recordQuestion);
     }
 }

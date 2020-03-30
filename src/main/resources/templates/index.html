@@ -22,7 +22,7 @@
                 <hr >
                 <div class="media" th:each="question : ${pageDisplayDTO.getQuestionDTOS()}">
                     <div class="media-left">
-                        <a href="#">
+                        <a th:href="@{'/question/' +  ${question.getId()}}">
                             <img class="media-object img-thumbnail" th:src="${question.getUser().getAvatarUrl()}" alt="avatar">
                         </a>
                     </div>

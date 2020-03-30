@@ -22,7 +22,7 @@
             <span class="text-desc">
                 作者：<span th:text="${questionDTO.getUser().getName()}"></span> •
                 发布时间：<span th:text="${#dates.format(questionDTO.getGmtCreate(), 'yyyy-MM-dd HH:mm:ss')}"></span> •
-                阅读数：<span th:text="${questionDTO.getLikeCount()}"></span>
+                阅读数：<span th:text="${questionDTO.getViewCount()}"></span>
             </span>
             <hr >
             <p th:text="${questionDTO.getDescription()}"></p>
