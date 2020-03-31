@@ -6,6 +6,7 @@
 
     <script src="/js/jquery-3.4.1.min.js"></script>
     <script src="/js/bootstrap.js" type="application/javascript"></script>
+    <script src="/js/community.js" type="application/javascript"></script>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/bootstrap-theme.css">
     <link rel="stylesheet" href="/css/community.css">
@@ -18,20 +19,42 @@
 <div class="container-fluid main profile">
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
-            <h3><span th:text="${questionDTO.getTitle()}"></span></h3>
-            <span class="text-desc">
-                作者：<span th:text="${questionDTO.getUser().getName()}"></span> •
-                发布时间：<span th:text="${#dates.format(questionDTO.getGmtCreate(), 'yyyy-MM-dd HH:mm:ss')}"></span> •
-                阅读数：<span th:text="${questionDTO.getViewCount()}"></span>
-            </span>
-            <hr >
-            <p th:text="${questionDTO.getDescription()}"></p>
-            <hr >
-            <a th:href="@{'/publish/' + ${questionDTO.getId()}}" class="community-menu"
-               th:if="${session.user != null && session.user.getId() == questionDTO.getCreator()}">
-                <span class="glyphicon glyphicon-pencil" aria-hidden="true">编辑
+            <div>
+                <h3><span th:text="${questionDTO.getTitle()}"></span></h3>
+                <span class="text-desc">
+                    作者：<span th:text="${questionDTO.getUser().getName()}"></span> •
+                    发布时间：<span th:text="${#dates.format(questionDTO.getGmtCreate(), 'yyyy-MM-dd HH:mm:ss')}"></span> •
+                    阅读数：<span th:text="${questionDTO.getViewCount()}"></span>
                 </span>
-            </a>
+                <hr class="fengexian-title">
+                <p th:text="${questionDTO.getDescription()}"></p>
+                <hr class="fengexian-content">
+                <a th:href="@{'/publish/' + ${questionDTO.getId()}}" class="community-menu"
+                   th:if="${session.user != null && session.user.getId() == questionDTO.getCreator()}">
+                    <span class="glyphicon glyphicon-pencil" aria-hidden="true">编辑
+                    </span>
+                </a>
+            </div>
+
+            <hr class="fengexian-section">
+
+            <div class="comment-content" id="comment_section">
+                <div class="media comment-content-head">
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="media-object img-rounded" th:src="${questionDTO.getUser().getAvatarUrl()}" alt="avatar">
+                        </a>
+                    </div>
+                    <div class="media-body comment-user-name">
+                        <h6 class="media-heading">
+                            <span th:text="${questionDTO.getUser().getName()}"></span>
+                        </h6>
+                    </div>
+                </div>
+                <input type="hidden" id="question_id" th:value="${questionDTO.id}">
+                <textarea class="form-control" rows="5" id="comment_content"></textarea>
+                <button type="submit" class="btn btn-success btn-comment" onclick="post()">评论</button>
+            </div>
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 question-right">
             <div>
@@ -42,7 +65,7 @@
                             <img class="media-object img-rounded" th:src="${questionDTO.getUser().getAvatarUrl()}" alt="avatar">
                         </a>
                     </div>
-                    <div class="media-body">
+                    <div class="media-body faqiren-title">
                         <h5 class="media-heading">
                             <span th:text="${questionDTO.getUser().getName()}"></span>
                         </h5>

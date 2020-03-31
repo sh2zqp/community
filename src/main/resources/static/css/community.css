@@ -21,6 +21,14 @@ body {
     height: 40px;
 }
 
+.comment-user-name {
+    vertical-align: bottom;
+}
+
+.faqiren-title {
+    vertical-align: middle;
+}
+
 .text-desc {
     font-size: 12px;
     font-weight: normal;
@@ -43,10 +51,38 @@ body {
     font-size: 14px;
     color: #999999;
     float: right;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .jumbotron {
     margin: 40px;
     background: url("../img/bg.jpg") repeat;
+}
+
+.comment-content {
+    border-top: 1px #eeeeee;
+}
+
+.comment-content-head {
+    margin-bottom: 10px;
+}
+
+.btn-comment {
+    float: right;
+    margin: 20px 0;
+}
+
+.fengexian-section {
+    margin: 40px 0;
+    clear: right;
+}
+
+.fengexian-content {
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+.fengexian-title {
+    margin-top: 5px;
+    margin-bottom: 20px;
 }
