@@ -76,6 +76,9 @@ public class PublishController {
         question.setGmtCreate(System.currentTimeMillis());
         question.setGmtModified(question.getGmtCreate());
         question.setId(id);
+        question.setViewCount(0);
+        question.setLikeCount(0);
+        question.setCommentCount(0);
         questionService.createOrUpdate(question);
 
         return "redirect:/";   // 无异常返回首页

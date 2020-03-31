@@ -31,4 +31,11 @@
         set VIEW_COUNT = VIEW_COUNT + 1
         where ID = #{id}
     </update>
+
+    <update id="incComment" parameterType="com.sh2zqp.community.model.Question">
+        update QUESTION
+        set COMMENT_COUNT = COMMENT_COUNT + #{commentCount, jdbcType=INTEGER}
+        where ID = #{id}
+    </update>
+
 </mapper>
