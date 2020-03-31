@@ -54,12 +54,12 @@ public class QuestionService {
             questionDTOS.add(questionDTO);
         }
         pageDisplayDTO.setQuestionDTOS(questionDTOS);
-        pageDisplayDTO.sePageDisplayDTO(totalCount, totalPage, page);  // 设置页面的一些分页显示数据
+        pageDisplayDTO.setPageDisplayDTO(totalCount, totalPage, page);  // 设置页面的一些分页显示数据
 
         return pageDisplayDTO;
     }
 
-    public PageDisplayDTO list(Integer page, Integer size, Integer userId) {
+    public PageDisplayDTO list(Integer page, Integer size, Long userId) {
         QuestionExample questionExample = new QuestionExample();
         questionExample.createCriteria().andCreatorEqualTo(userId);
         Integer totalCount = (int) questionMapper.countByExample(questionExample);
@@ -88,12 +88,12 @@ public class QuestionService {
             questionDTOS.add(questionDTO);
         }
         pageDisplayDTO.setQuestionDTOS(questionDTOS);
-        pageDisplayDTO.sePageDisplayDTO(totalCount, totalPage, page);  // 设置页面的一些分页显示数据
+        pageDisplayDTO.setPageDisplayDTO(totalCount, totalPage, page);  // 设置页面的一些分页显示数据
 
         return pageDisplayDTO;
     }
 
-    public QuestionDTO getQuestionById(Integer id) {
+    public QuestionDTO getQuestionById(Long id) {
         QuestionDTO questionDTO = new QuestionDTO();
         Question question = questionMapper.selectByPrimaryKey(id);
         if (question == null) {
@@ -128,7 +128,7 @@ public class QuestionService {
         }
     }
 
-    public void incView(Integer id) {
+    public void incView(Long id) {
         Question recordQuestion = new Question();
         recordQuestion.setId(id);
         questionExtendMapper.incView(recordQuestion);

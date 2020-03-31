@@ -21,7 +21,7 @@ public class PageDisplayDTO {
      * @param totalPage 总的页面数
      * @param page 查询的当前页码
      */
-    public void sePageDisplayDTO(Integer totalCount, Integer totalPage, Integer page) {
+    public void setPageDisplayDTO(Integer totalCount, Integer totalPage, Integer page) {
         this.currentPage = page; // 设置当前页
         this.totalPage = totalPage; // 设置总页数
 

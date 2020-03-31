@@ -29,6 +29,6 @@
     <update id="incView" parameterType="com.sh2zqp.community.model.Question">
         update QUESTION
         set VIEW_COUNT = VIEW_COUNT + 1
-        where ID = #{id,jdbcType=INTEGER}
+        where ID = #{id}
     </update>
 </mapper>
