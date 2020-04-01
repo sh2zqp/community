@@ -19,6 +19,7 @@
 <div class="container-fluid main profile">
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            <!-- 标题头 -->
             <div>
                 <h3><span th:text="${questionDTO.getTitle()}"></span></h3>
                 <span class="text-desc">
@@ -36,8 +37,40 @@
                 </a>
             </div>
 
-            <hr class="fengexian-section">
+            <!-- 评论内容列表 -->
+            <div class="comment-list">
+                <h4 class="comment-list-head">
+                    <span th:text="${questionDTO.getCommentCount()}"></span> 个评论
+                </h4>
+                <hr class="fengexian-comment-list" >
+                <div th:each="commentDTO : ${commentDTOs}">
+                    <div class="media comment-content-head">
+                        <div class="media-left">
+                            <a href="#">
+                                <img class="media-object img-rounded" th:src="${commentDTO.getUser().getAvatarUrl()}" alt="avatar">
+                            </a>
+                        </div>
+                        <div class="media-body comment-list-name">
+                            <h6 class="media-heading">
+                                <span th:text="${commentDTO.getUser().getName()}"></span>
+                            </h6>
+                            <div class="reply-content">
+                                <span th:text="${commentDTO.getContent()}"></span>
+                            </div>
+                            <div class="reply-menu">
+                                <span class="glyphicon glyphicon-thumbs-up icon"></span>
+                                <span class="glyphicon glyphicon-comment icon"></span>
+                                <span class="pull-right" th:text="${#dates.format(commentDTO.getGmtCreate(), 'yyyy-MM-dd')}"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="fengexian-comment-item">
+                </div>
+            </div>
 
+<!--            <hr class="fengexian-section" th:if="${questionDTO.getCommentCount() > 0}">-->
+
+            <!-- 评论输入框 -->
             <div class="comment-content" id="comment_section">
                 <div class="media comment-content-head">
                     <div class="media-left">

@@ -25,6 +25,10 @@ body {
     vertical-align: bottom;
 }
 
+.comment-list-name {
+    vertical-align: top;
+}
+
 .faqiren-title {
     vertical-align: middle;
 }
@@ -61,6 +65,7 @@ body {
 
 .comment-content {
     border-top: 1px #eeeeee;
+    margin-top: 40px;
 }
 
 .comment-content-head {
@@ -73,7 +78,7 @@ body {
 }
 
 .fengexian-section {
-    margin: 40px 0;
+    margin: 30px 0;
     clear: right;
 }
 
@@ -85,4 +90,39 @@ body {
 .fengexian-title {
     margin-top: 5px;
     margin-bottom: 20px;
+}
+
+.fengexian-comment-list {
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+.reply-content {
+    margin-top: 5px;
+}
+
+.reply-menu {
+    margin-top: 5px;
+    color: #999999;
+}
+.reply-menu .icon {
+    margin-right: 10px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.reply-menu .icon:hover {
+    color: #499ef3;
+}
+
+.comment-list {
+    clear: right;
+}
+
+.comment-list-head {
+    margin-top: 30px;
+}
+
+.fengexian-comment-item {
+    margin: 10px 0;
 }
